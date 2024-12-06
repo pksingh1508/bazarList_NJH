@@ -1,20 +1,152 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Home from './screens/Home';
+import Settings from './screens/Settings';
+import { useFonts } from 'expo-font';
+import { ActivityIndicator, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Colors from './constants/Colors';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AddScreen from './screens/AddScreen';
+import { ItemProvider } from './store/ItemContext';
+import DetailScreen from './screens/DetailScreen';
+import { useEffect } from 'react';
+import { init } from './Database';
+import Toast from 'react-native-toast-message';
+import { MenuProvider } from 'react-native-popup-menu';
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+// Bottom Tab Navigation
+function BottomNavigation() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarLabelPosition: 'beside-icon',
+        tabBarLabelStyle: {
+          fontFamily: 'mon-n',
+          fontSize: 16,
+          alignItems: 'center',
+          paddingHorizontal: 3,
+        },
+        tabBarStyle: {
+          backgroundColor: Colors.primary500,
+          paddingVertical: 20,
+          height: 60,
+        },
+        tabBarActiveTintColor: Colors.orange100,
+        tabBarHideOnKeyboard: true,
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: Colors.primary500,
+        },
+        headerTitleStyle: {
+          color: Colors.orange100,
+          fontFamily: 'mon-n',
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          title: 'Home',
+          headerTitle: 'Bazar Lists',
+          tabBarIcon: ({ size, color }) => <Ionicons name="home" size={size} color={color} />
+        }}
+      />
+      <Tab.Screen
+        name="Setting"
+        component={Settings}
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ size, color }) => (
+            <SimpleLineIcons name="settings" size={size} color={color} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// App Component
+export default function App() {
+  const [fontLoaded, error] = useFonts({
+    'mon-b': require('./assets/fonts/Montserrat-Bold.ttf'),
+    'mon-n': require('./assets/fonts/Montserrat-Medium.ttf'),
+    'mon-r': require('./assets/fonts/Montserrat-Regular.ttf'),
+    'mon-sb': require('./assets/fonts/Montserrat-SemiBold.ttf'),
+  });
+
+  useEffect(() => {
+    async function func() {
+      await init();
+    }
+    func();
+  }, [])
+
+  if (!fontLoaded) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Colors.primary600,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <ActivityIndicator animating={true} color={Colors.white200} size="large" />
+      </View>
+    );
+  }
+
+  return (
+    <NavigationContainer>
+      <MenuProvider>
+        <ItemProvider>
+          <StatusBar style="light" />
+          <Stack.Navigator>
+            {/* Show BottomNavigation first */}
+            <Stack.Screen
+              name="Main"
+              component={BottomNavigation}
+              options={{ headerShown: false }}
+            />
+            {/* Additional screens in the stack */}
+            <Stack.Screen
+              name="AddScreen"
+              component={AddScreen}
+              options={{
+                title: 'Add Item',
+                headerStyle: { backgroundColor: Colors.primary500 },
+                headerTitleStyle: {
+                  color: Colors.orange100,
+                  fontFamily: 'mon-sb'
+                },
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="DetailScreen"
+              component={DetailScreen}
+              options={{
+                title: 'LIST OF ITEMS',
+                headerStyle: { backgroundColor: Colors.primary500 },
+                headerTitleStyle: {
+                  color: Colors.orange100,
+                  fontFamily: 'mon-sb'
+                },
+                headerTitleAlign: 'center',
+              }}
+            />
+          </Stack.Navigator>
+          <Toast />
+        </ItemProvider>
+      </MenuProvider>
+    </NavigationContainer>
+  );
+}
