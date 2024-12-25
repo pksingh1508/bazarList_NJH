@@ -18,16 +18,14 @@ const DetailScreen = ({ navigation, route }: { navigation: any, route: any }) =>
         Toast.show({
             type: 'error',
             visibilityTime: 2000,
-            text1: 'Bazar List',
-            text2: 'Item deleted Successfully 👋'
+            text1: 'Item deleted Successfully 👋'
         });
     }
     const TextCopiedToast = () => {
         Toast.show({
             type: 'success',
             visibilityTime: 2000,
-            text1: 'Share AnyWhere!',
-            text2: 'Item Copied Successfully 👋'
+            text1: 'Item Copied Successfully 👋'
         });
     }
 
@@ -60,9 +58,6 @@ const DetailScreen = ({ navigation, route }: { navigation: any, route: any }) =>
             },
             headerRight: () => {
                 return (
-                    // <TouchableOpacity onPress={deleteHandler}>
-                    //     <AntDesign name="delete" size={24} color={Colors.orange100} />
-                    // </TouchableOpacity>
                     <DetailLeftHeader deleteHandler={deleteHandler} updateHandler={updateHandler} shareHandler={shareHandler} />
                 )
             }

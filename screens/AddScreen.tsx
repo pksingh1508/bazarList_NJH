@@ -18,17 +18,15 @@ const AddScreen = ({ navigation, route }: any) => {
     const showToast = () => {
         Toast.show({
             type: 'success',
-            text1: 'Bazar List',
             visibilityTime: 2000,
-            text2: 'Item added Successfully 👋'
+            text1: 'Item added Successfully 👋'
         });
     }
     const UpdateToast = () => {
         Toast.show({
             type: 'success',
-            text1: 'Bazar List',
             visibilityTime: 2000,
-            text2: 'Item Updated Successfully 👋'
+            text1: 'Item Updated Successfully 👋'
         });
     }
 
@@ -120,7 +118,6 @@ const AddScreen = ({ navigation, route }: any) => {
                 onChangeText={setItem}
                 multiline={true}
                 cursorColor={Colors.orange100}
-                autoCapitalize='characters'
             />
         </View>
     )

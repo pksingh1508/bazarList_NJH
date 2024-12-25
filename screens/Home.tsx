@@ -23,8 +23,12 @@ function Home({ navigation }: { navigation: any }) {
 
     useEffect(() => {
         async function getData() {
-            const allData = await getAllItems();
-            addInitialData(allData);
+            try {
+                const allData = await getAllItems();
+                addInitialData(allData);
+            } catch (error) {
+                console.log("Something went wrong while getting all the data from the database.",error);
+            }
         }
         getData();
     }, []);
