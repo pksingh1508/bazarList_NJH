@@ -28,7 +28,8 @@
     "react-native-screens": "~4.1.0",
     "react-native-toast-message": "^2.2.1",
     "react-native-uuid": "^2.0.3",
-    "expo-clipboard": "~7.0.0"
+    "expo-clipboard": "~7.0.0",
+    "expo-splash-screen": "~0.29.18"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -37,4 +38,3 @@
   },
   "private": true
 }
-

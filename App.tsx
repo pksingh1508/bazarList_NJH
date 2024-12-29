@@ -4,11 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './screens/Home';
 import Settings from './screens/Settings';
 import { useFonts } from 'expo-font';
-import { ActivityIndicator, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Colors from './constants/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AddScreen from './screens/AddScreen';
 import { ItemProvider } from './store/ItemContext';
@@ -17,6 +15,7 @@ import { useEffect } from 'react';
 import { init } from './Database';
 import Toast from 'react-native-toast-message';
 import { MenuProvider } from 'react-native-popup-menu';
+import * as SplashScreen from "expo-splash-screen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -73,9 +72,11 @@ function BottomNavigation() {
   );
 }
 
+SplashScreen.preventAutoHideAsync();
+
 // App Component
 export default function App() {
-  const [fontLoaded, error] = useFonts({
+  const [loaded] = useFonts({
     'mon-b': require('./assets/fonts/Montserrat-Bold.ttf'),
     'mon-n': require('./assets/fonts/Montserrat-Medium.ttf'),
     'mon-r': require('./assets/fonts/Montserrat-Regular.ttf'),
@@ -89,19 +90,14 @@ export default function App() {
     func();
   }, [])
 
-  if (!fontLoaded) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: Colors.primary600,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <ActivityIndicator animating={true} color={Colors.white200} size="large" />
-      </View>
-    );
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
+
+  if (!loaded) {
+    return null;
   }
 
   return (

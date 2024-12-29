@@ -1,9 +1,8 @@
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import Colors from '../constants/Colors';
 import { Ionicons } from '@expo/vector-icons'
 import SingleListItem from '../components/SingleListItem';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import { ItemContext } from '../store/ItemContext';
 import Toast from 'react-native-toast-message';
 import DetailLeftHeader from '../components/DetailLeftHeader';

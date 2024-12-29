@@ -1,8 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Pressable, Linking } from 'react-native'
 import React from 'react'
 import Colors from '../constants/Colors'
 
 const Settings = () => {
+    const openLink = () => {
+        Linking.openURL('https://pawankumar.site');
+    }
     return (
         <View style={styles.container}>
             <View>
@@ -10,7 +13,7 @@ const Settings = () => {
                 <View style={styles.mainContainer}>
                     <View style={styles.version}>
                         <Text style={styles.text}>Version</Text>
-                        <Text style={styles.text}>2.32.8</Text>
+                        <Text style={styles.text}>1.0.0</Text>
                     </View>
                     <View style={styles.supported}>
                         <Text style={styles.text}>Supported</Text>
@@ -18,9 +21,12 @@ const Settings = () => {
                     </View>
                 </View>
             </View>
-            <View>
-                <Text style={{ color: Colors.orange100, textAlign: 'center' }}>Made with ❤️ by Pawan Kumar.</Text>
-            </View>
+            <TouchableOpacity onPress={openLink}>
+                <View style={{flexDirection: 'row', paddingLeft: 90}}>
+                    <Text style={{ color: Colors.white300 }}>Made with ❤️ by </Text>
+                    <Text style={styles.myLink}>Pawan Kumar.</Text>
+                </View>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -66,6 +72,14 @@ const styles = StyleSheet.create({
         fontSize: 17,
         fontFamily: 'mon-r',
         color: Colors.white100
+    }, 
+    myLink: {
+        color: Colors.orange100,
+        fontWeight: 'bold',
+        fontSize: 15,
+        textDecorationLine: 'underline',
+        paddingLeft: 2,
+        letterSpacing: 1.1
     }
 })
 
