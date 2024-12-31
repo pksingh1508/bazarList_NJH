@@ -3,7 +3,7 @@ import { Item } from './store/ItemContext';
 
 async function init() {
     try {
-        const db = await SQLite.openDatabaseAsync('bazarList');
+        const db = await SQLite.openDatabaseAsync('myDataBase');
 
         await db.execAsync(`
         PRAGMA journal_mode = WAL;
@@ -22,7 +22,7 @@ async function init() {
 
 async function insert(id: string, value: string, date: string, day: string) {
     try {
-        const db = await SQLite.openDatabaseAsync('bazarListDB');
+        const db = await SQLite.openDatabaseAsync('myDataBase');
         const result = await db.runAsync('INSERT INTO bazar (id,value, date, day) VALUES (?,?, ?,?)', id, value, date, day);
         // console.log(result);
     } catch (e) {
@@ -32,7 +32,7 @@ async function insert(id: string, value: string, date: string, day: string) {
 
 async function updateValueById(id: string, newValue: string) {
     try {
-        const db = await SQLite.openDatabaseAsync('bazarListDB');
+        const db = await SQLite.openDatabaseAsync('myDataBase');
         const result = await db.runAsync('UPDATE bazar SET value = ? WHERE id = ?', [newValue, id]);
         // console.log("Update successful:", result);
     } catch (e) {
@@ -43,7 +43,7 @@ async function updateValueById(id: string, newValue: string) {
 
 async function deleteBazarItemById(id: string) {
     try {
-        const db = await SQLite.openDatabaseAsync('bazarListDB');
+        const db = await SQLite.openDatabaseAsync('myDataBase');
         await db.runAsync('DELETE FROM bazar WHERE id = $id', { $id: id });
         // console.log("deleted Successfully");
     } catch (e) {
