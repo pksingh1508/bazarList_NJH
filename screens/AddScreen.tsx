@@ -118,6 +118,7 @@ const AddScreen = ({ navigation, route }: any) => {
                 onChangeText={setItem}
                 multiline={true}
                 cursorColor={Colors.orange100}
+                autoFocus={true}
             />
         </View>
     )

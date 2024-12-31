@@ -3,7 +3,7 @@ import { Item } from './store/ItemContext';
 
 async function init() {
     try {
-        const db = await SQLite.openDatabaseAsync('bazarListDBTest');
+        const db = await SQLite.openDatabaseAsync('bazarList');
 
         await db.execAsync(`
         PRAGMA journal_mode = WAL;
