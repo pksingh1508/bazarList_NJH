@@ -7,7 +7,7 @@ import SingleItem from '../components/SingleItem';
 import { getAllItems } from '../Database';
 
 function Home({ navigation }: { navigation: any }) {
-    const { items, addInitialData, addItem, deleteItem } = useContext(ItemContext);
+    const { items, addInitialData } = useContext(ItemContext);
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => (

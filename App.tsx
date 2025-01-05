@@ -12,7 +12,7 @@ import AddScreen from './screens/AddScreen';
 import { ItemProvider } from './store/ItemContext';
 import DetailScreen from './screens/DetailScreen';
 import { useEffect } from 'react';
-import { init } from './Database';
+import { init } from './Databases';
 import Toast from 'react-native-toast-message';
 import { MenuProvider } from 'react-native-popup-menu';
 import * as SplashScreen from "expo-splash-screen";

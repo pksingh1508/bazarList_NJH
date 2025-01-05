@@ -53,7 +53,7 @@ async function deleteBazarItemById(id: string) {
 
 async function getAllItems() {
     try {
-        const db = await SQLite.openDatabaseAsync('bazarListDB');
+        const db = await SQLite.openDatabaseAsync('myDataBase');
         const allRows = await db.getAllAsync('SELECT * FROM bazar');
         return <Item[]>allRows || <Item[]>[];
     } catch (e) {
